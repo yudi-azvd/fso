@@ -1,4 +1,3 @@
-# Fundamentos de Sistemas Operacionais 
-<small>FGA0170</small>
+# Fundamentos de Sistemas Operacionais - FGA0170
 
 [Página de FSO](https://www.brunoribas.com.br/so/2021-1/)

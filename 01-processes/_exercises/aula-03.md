@@ -55,7 +55,7 @@ Escreva um programa que gere um processo Zumbi.
 ### Resposta
 [`questao-4-zombie-process.c`](questao-4-zombie-process.c).
 
-Rodar `ps x` para verificar o zombie. O que deve aparecer é algo do tipo 
+Rodar `ps x` para verificar o zumbi. O que deve aparecer é algo do tipo 
 
     PID ... ... ./a.out
     PID ... ... [./a.out] <defunct> // zumbi
@@ -73,6 +73,12 @@ Quantas vezes é apresentada "Sistemas Operacionais"? Justifique.
 
 Quantos processos são criados pelo programa?
 
+### Resposta
+1. 4 vezes. `p = fork()` é executada pelo pai e pelo primeiro filho, `a = fork()`
+é executada pelo pai e pelo segundo filho. Vide a execução de 
+[`questao-5.c`](questao-5.c).
+
+1. 2 processos? porque são 2 filhos. O processo pai conta?
 
 ## Questão 6
 Faça um programa que crie 2 processos e:

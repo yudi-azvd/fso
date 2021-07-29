@@ -26,7 +26,9 @@ Na figura 1 são mostrados três estados de processos.
 
 ![estados de um processo](grafo-estados.png)
 
-Na teoria, com três estados poderia haver seis transições, duas para cada estado. Contudo, somente quatro transições são mostradas. Há alguma circunstância na qual uma delas ou ambas as transições não ilustradam possam ocorrer?
+Na teoria, com três estados poderia haver seis transições, duas para cada estado.
+Contudo, somente quatro transições são mostradas. Há alguma circunstância na 
+qual uma delas ou ambas as transições não ilustradam possam ocorrer?
 
 ### Resposta
 Segundo Tanenbaum, um processo em estado conceitualmente pronto pode ser 
@@ -34,7 +36,8 @@ parado por que a CPU precisa alocar recursos para outro processo por um tempo.
 
 
 ## Questão 3
-O que é um processo Zumbi? Explique como que um processo passe para o estado de Zumbi.
+O que é um processo Zumbi? Explique como que um processo passe para o estado de 
+Zumbi.
 
 ### Resposta
 É um processo que terminou de executar e só está esperando o processo pai pegar
@@ -48,6 +51,7 @@ função deve retornar 1.
 
 Notes in the manual pages (`man wait`)
 > A child that terminates, but has not been waited for becomes a "zombie".
+
 
 ## Questão 4
 Escreva um programa que gere um processo Zumbi.
@@ -80,6 +84,7 @@ Quantos processos são criados pelo programa?
 
 1. 2 processos? porque são 2 filhos. O processo pai conta?
 
+
 ## Questão 6
 Faça um programa que crie 2 processos e:
 - Escreve `Eu sou o pai` no processo pai;
@@ -94,5 +99,5 @@ Considere o seguinte pedaço de código em C:
       pid=fork();
     printf("FSO\n");
 
-Quantos processos são criados por este programa? Justifique.
-Quantas vezes é apresentado "FSO"? Justifique.
+### Resposta
+[questao-7.c](questao-7.c)

@@ -50,7 +50,3 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
-## Yudi
-01-processes/proc-a
-01-processes/proc-b

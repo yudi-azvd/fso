@@ -8,8 +8,11 @@ no telegram AQUI, com o conteúdo:
 Os usuários são compartilhados com as listas de EDA2
 
 
-## Questão 2 - OK
+## Questão 2
 O que é um processo Zumbi? Escreva um programa que crie processos zumbis.
+
+### Resposta
+respondido em [../aula-03/README.md#questao-3](../aula-03/README.md#questao-3)
 
 
 ## Questão 3 
@@ -26,6 +29,20 @@ Resolva http://www.dei.isep.ipp.pt/~orlando/so2/processos.htm
 
 ## Questão 6
 Familiarize-se com as chamadas: execve(2), clone(2)
+
+
+## Questão pré 7
+
+    ...
+    int main() {
+      pid1=fork();
+      pid2=fork();
+      printf("oi");
+    }
+1. Quantas vezes é apresentada a frase `oi`? Justifique.
+
+### Resposta
+[exp.c](exp.c) e [árvore de processos](./exp-process-tree.png)
 
 
 ## Questão 7
@@ -46,7 +63,8 @@ Considere a seguinte parte de um programa
       ...
     }
 1. Quantas vezes é apresentada a frase Exame de SO? Justifique
-1. Veja a discussão deste problema no vídeo abaixo:
+1. Veja a discussão deste problema nesse 
+[vídeo](https://www.youtube.com/watch?v=C4dWwWAd5Wg&t=1281s) 
 
 
 ## Questão 8

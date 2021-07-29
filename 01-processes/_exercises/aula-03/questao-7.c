@@ -20,5 +20,30 @@ int main() {
     pid = fork(); 
   
   printf("FSO\n");
+
+  sleep(10); //  tem que esperar tempo o suficiente
   return 0;
 }
+
+/*
+shell:
+./a.out & ps -x --forest
+
+ \_ ./a.out
+ |   \_ ./a.out
+ |   |   \_ ./a.out
+ |   |   |   \_ ./a.out
+ |   |   |   |   \_ ./a.out
+ |   |   |   \_ ./a.out
+ |   |   \_ ./a.out
+ |   |   |   \_ ./a.out
+ |   |   \_ ./a.out
+ |   \_ ./a.out
+ |   |   \_ ./a.out
+ |   |   |   \_ ./a.out
+ |   |   \_ ./a.out
+ |   \_ ./a.out
+ |   |   \_ ./a.out
+ |   \_ ./a.out
+
+*/

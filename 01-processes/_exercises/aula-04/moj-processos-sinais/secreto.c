@@ -60,15 +60,6 @@ void handle_signal(int new_sig) {
   int new_sig_matches_sig_at_seq_index =
     new_sig == correct_signal_sequence[sig_index];
 
-  // printf("\t/-------------------------------------\n");
-  // printf("\t|correct_signal_sequence[sig_index]: %d\n", correct_signal_sequence[sig_index]);
-  // printf("\t|  new_sig_matches_sig_at_seq_index: %d\n", new_sig_matches_sig_at_seq_index);
-  // printf("\t|                         sig_index: %d\n", sig_index);
-  // printf("\t|                         act count: %d\n", ACTIVATION_THRESHOLD+1);
-  // printf("\t|                           new_sig: %d\n", new_sig);
-  // printf("\t|"); print_curr_signals();
-  // printf("\t\\-------------------------------------\n");
-
   if (new_sig_matches_sig_at_seq_index) {
     signals[sig_index++] = new_sig;
 
@@ -89,7 +80,8 @@ void handle_signal(int new_sig) {
     clear_signals();
     sig_index = 0;
 
-    // GAMBIARRA?: recomeçar sequencia qusndo new_signal=SIGINT vei na hora errada
+    // GAMBIARRA?: recomeçar sequencia quando new_signal=SIGINT vei na hora errada
+    // repetido? parece iqual à linha 64
     if (new_sig == SIGINT)
       signals[sig_index++] = new_sig;
     return;

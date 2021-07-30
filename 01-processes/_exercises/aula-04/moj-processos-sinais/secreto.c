@@ -9,7 +9,6 @@
 const int correct_signal_sequence[] = {SIGINT, SIGUSR2, SIGTERM, SIGUSR1};
 // são necessários apenas os 3 primeiros sinais na ordem para ativação
 const int ACTIVATION_THRESHOLD = sizeof(correct_signal_sequence)/sizeof(int)-1;
-int is_password_active = 0;
 int signals[SIGNALS_MAX_LEN] = {-1, -1, -1, -1};
 int sig_index = 0;
 
@@ -75,7 +74,6 @@ void handle_signal(int new_sig) {
 
     if (sig_index == ACTIVATION_THRESHOLD) {
       printf("Senha acionada\n");
-      is_password_active = 1;
       return;
     }
 
@@ -90,10 +88,10 @@ void handle_signal(int new_sig) {
   if (!new_sig_matches_sig_at_seq_index) {
     clear_signals();
     sig_index = 0;
-    is_password_active = 0;
 
-    // GAMBIARRA?: recomeçar sequencia a partir desse new_signal que foi errado
-    signals[sig_index++] = new_sig;
+    // GAMBIARRA?: recomeçar sequencia qusndo new_signal=SIGINT vei na hora errada
+    if (new_sig == SIGINT)
+      signals[sig_index++] = new_sig;
     return;
   }
 }

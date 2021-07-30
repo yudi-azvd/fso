@@ -19,11 +19,34 @@
         {
           "description": "Enable pretty-printing for gdb",
           "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
+          "ignoreFailures": true,
+        },
+        {
+          // https://stackoverflow.com/questions/59765405/running-a-gdb-command-before-attaching-it-to-a-process-via-visual-studio-code
+          // https://github.com/microsoft/vscode-cpptools/issues/3042
+          // https://github.com/microsoft/vscode-cpptools/issues/3042
+          "description": "Enable signals",
+          "text": "handle SIGINT stop noprint pass",
+          "ignoreFailures": true,
+        },
+        {
+          "description": "Enable signals",
+          "text": "handle SIGUSR1 stop noprint pass",
+          "ignoreFailures": true,
+        },
+        {
+          "description": "Enable signals",
+          "text": "handle SIGUSR2 stop noprint pass",
+          "ignoreFailures": true,
+        },
+        {
+          "description": "Enable signals",
+          "text": "handle SIGTERM stop noprint pass",
+          "ignoreFailures": true,
+        },
       ],
       "preLaunchTask": "C/C++: gcc-9 build active file",
-      "miDebuggerPath": "/usr/bin/gdb"
+      "miDebuggerPath": "/usr/bin/gdb",
     }
   ]
 }

@@ -6,12 +6,11 @@
 
 #define SIGNALS_MAX_LEN 4
 
-const int password_activation_seq[] = {SIGINT, SIGUSR2, SIGTERM};
-const int ACTIVATION_COUNT = sizeof(password_activation_seq)/sizeof(int);
-int password_index = 0;
+const int correct_signal_sequence[] = {SIGINT, SIGUSR2, SIGTERM, SIGUSR1};
+// são necessários apenas os 3 primeiros sinais na ordem para ativação
+const int ACTIVATION_THRESHOLD = sizeof(correct_signal_sequence)/sizeof(int)-1;
 int is_password_active = 0;
-
-int signals[SIGNALS_MAX_LEN] = {0, 0, 0, 0};
+int signals[SIGNALS_MAX_LEN] = {-1, -1, -1, -1};
 int sig_index = 0;
 
 void clear_signals();
@@ -27,12 +26,22 @@ int main() {
   signal(SIGUSR2, handle_signal);
   signal(SIGTERM, handle_signal);
 
-  while (1)
+  while (1) {
     pause();
+  }
 
   return 0;
 }
 
+
+void print_curr_signals() {
+  int i = 0;
+  printf("signals: [");
+  for (; i < sig_index-1; i++) {
+    printf("%d ", signals[i]);
+  }
+  printf("%d]\n", signals[i]);
+}
 
 void clear_signals() {
   int i = 0;
@@ -45,36 +54,46 @@ void print_sig(int sig) {
   printf("Recebi %d\n", sig);
 }
 
+// Manda `-exec signal SIGINT` no painel do debugger
 void handle_signal(int new_sig) {
   print_sig(new_sig);
 
-  int new_sig_matches_sig_at_password_index =
-    new_sig == password_activation_seq[password_index];
+  int new_sig_matches_sig_at_seq_index =
+    new_sig == correct_signal_sequence[sig_index];
 
-  if (new_sig_matches_sig_at_password_index) {
+  // printf("\t/-------------------------------------\n");
+  // printf("\t|correct_signal_sequence[sig_index]: %d\n", correct_signal_sequence[sig_index]);
+  // printf("\t|  new_sig_matches_sig_at_seq_index: %d\n", new_sig_matches_sig_at_seq_index);
+  // printf("\t|                         sig_index: %d\n", sig_index);
+  // printf("\t|                         act count: %d\n", ACTIVATION_THRESHOLD+1);
+  // printf("\t|                           new_sig: %d\n", new_sig);
+  // printf("\t|"); print_curr_signals();
+  // printf("\t\\-------------------------------------\n");
+
+  if (new_sig_matches_sig_at_seq_index) {
     signals[sig_index++] = new_sig;
-    password_index++;
+
+    if (sig_index == ACTIVATION_THRESHOLD) {
+      printf("Senha acionada\n");
+      is_password_active = 1;
+      return;
+    }
+
+    if (sig_index == ACTIVATION_THRESHOLD+1 && new_sig == SIGUSR1) {
+      printf("Tchau\n");
+      exit(0);
+    }
+    
     return;
   }
 
-  if (!new_sig_matches_sig_at_password_index) {
+  if (!new_sig_matches_sig_at_seq_index) {
     clear_signals();
     sig_index = 0;
-    password_index = 0;
     is_password_active = 0;
+
+    // GAMBIARRA?: recomeçar sequencia a partir desse new_signal que foi errado
+    signals[sig_index++] = new_sig;
     return;
   }
-
-  int signals_matches_count = password_index+1;
-  if (signals_matches_count == ACTIVATION_COUNT) {
-    printf("Senha acionada\n");
-    is_password_active = 1;
-    return;
-  }
-
-  if (is_password_active && new_sig == SIGUSR1) {
-    printf("Tchau\n");
-    return;
-  }
-
 }

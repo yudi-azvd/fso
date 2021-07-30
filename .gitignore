@@ -53,3 +53,4 @@ dkms.conf
 
 ## Meus - yudi-azvd
 tmp
+*.log.md

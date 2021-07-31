@@ -1,21 +1,21 @@
 #!/bin/bash
 
-# Seria interessante se esse script já executasse o programa
+# Seria interessante se esse script já executasse o programa?
 
 main() {
   test_cases=(
-    "SIGUSR1 SIGUSR1 SIGUSR1"
-    "SIGUSR1 SIGUSR2 SIGUSR1"
-    "SIGUSR2 SIGUSR2 SIGUSR2"
-    "SIGUSR2 SIGUSR1 SIGUSR2"
+    "SIGUSR1 SIGUSR2 SIGALRM" 
+    "SIGINT SIGTERM SIGUSR1 SIGTERM SIGUSR2 SIGALRM SIGINT"
+    "SIGUSR1 SIGUSR2 SIGALRM SIGALRM SIGTERM"
   )
+
   test_case_index=$1
   program_name="a"
 
   if [ "$1" == "-d" ]; then # debug
     echo "debug"
     # no futuro, pegar esse nome automaticamente com ./$0.sh
-    program_name="zumbi"
+    program_name="flau"
   fi
   
   pid=$(find_process_pid $program_name)

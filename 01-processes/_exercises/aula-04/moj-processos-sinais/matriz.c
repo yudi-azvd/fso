@@ -28,6 +28,15 @@ int status;
 pid_t child_pid_1, child_pid_2;
 
 
+/**
+ * Solucação do professor:
+ * https://www.youtube.com/watch?v=LXcm3EFv86I&t=2732s
+ * 
+ * Notar o que ele fala em t=4019 sobre usar a mesma variável pra uma coisa lá.
+ * 
+ * Ideia para o futuro: rodar o profiler nesse programa e ver onde ele mais 
+ * gasta tempo.
+*/
 int main() {
   signal(DONE_CALC, parent_handle_done_calc);
   signal(DONE_PRINT, parent_handle_done_print);
@@ -37,9 +46,9 @@ int main() {
 
   child_pid_1 = fork();
   if (child_pid_1 > 0) {
-    child_pid_2 = fork();
 
     // calculate lower half
+    child_pid_2 = fork();
     if (child_pid_2 == 0) {
       signal(PRINT_YOUR_HALF, child_2_print_your_half);
       child_calc_your_half(matrix_a, matrix_b, n, n/2, n-1);
@@ -54,7 +63,8 @@ int main() {
     kill(getppid(), DONE_CALC);
   }
 
-  while (1) {
+  // printf("ON PAUSE!\n");
+  while (children_done_print < 2) {
     pause();
   }
 
@@ -67,6 +77,9 @@ void parent_handle_done_calc(int sig) {
 
   if (children_done_calc == 2) {
     kill(child_pid_1, PRINT_YOUR_HALF);
+    // não basta esperar um tempo fixo (usleep(1)), o pai deve esperar
+    // o filho1 terminar de imprimir - pause()
+    pause();
     kill(child_pid_2, PRINT_YOUR_HALF);
   }
 }

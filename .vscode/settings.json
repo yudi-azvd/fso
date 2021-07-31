@@ -7,6 +7,7 @@
     ".h": "c",
     "unistd.h": "c",
     "signal.h": "c",
-    "type_traits": "c"
+    "type_traits": "c",
+    "*.tcc": "c"
   }
 }

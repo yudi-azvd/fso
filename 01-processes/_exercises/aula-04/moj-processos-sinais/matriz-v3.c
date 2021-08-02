@@ -48,7 +48,7 @@ int main() {
   pid_t pids[nproc];
   signal(CHILD_1_SIGNAL, parent_handle_child_1_sig);
   signal(CHILD_2_SIGNAL, parent_handle_child_2_sig);
-  int child_sigs[] = {CHILD_1_SIGNAL, CHILD_2_SIGNAL};
+  int children_sigs[] = {CHILD_1_SIGNAL, CHILD_2_SIGNAL};
 
   scanf("%d\n", &n);
   read_matrices();
@@ -64,10 +64,10 @@ int main() {
       int start_row = i*interval_len, end_row = i*interval_len+interval_len-1;
       signal(CHILD_1_SIGNAL, child_do_nothing);
       child_calc_your_half(matrix_a, matrix_b, n, start_row, end_row);
-      kill(getppid(), child_sigs[i]);
+      kill(getppid(), children_sigs[i]);
       pause();
       print_matrix(matrix_c, n, start_row, end_row);
-      kill(getppid(), child_sigs[i]);
+      kill(getppid(), children_sigs[i]);
       exit(0);
     }
   }

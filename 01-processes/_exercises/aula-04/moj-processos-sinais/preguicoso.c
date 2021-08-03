@@ -5,6 +5,9 @@
 #include <sys/types.h>
 
 
+// outra solução instalando um sinal a cada sinal:
+// https://youtu.be/V3mTFMWTgao?t=292
+
 int alarm_count = 0;
 
 void handle_signal(int);

@@ -48,7 +48,8 @@ main() {
 
 find_process_pid() {
   program_name=$1 # achei que deveria ser $0
-  pid=$(pstree yudi -p | grep $program_name.out | sed -E "s/^(.+)$program_name\.out\(([0-9]+)\)/\2/")
+  # pid=$(pstree yudi -p | grep $program_name.out | sed -E "s/^(.+)$program_name\.out\(([0-9]+)\)/\2/")
+  pid=$(ps -x --forest | grep 'a'.out | sed -E "s/^[\s+]?([0-9]+)(.*)/\1/" | head -n1)
   echo "$pid"
 }
 

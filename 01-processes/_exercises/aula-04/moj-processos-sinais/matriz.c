@@ -36,7 +36,7 @@ pid_t child_pid_1, child_pid_2;
  * 
  * Ideia para o futuro: rodar o profiler nesse programa e ver onde ele mais 
  * gasta tempo.
-*/
+ */
 int main() {
   signal(DONE_CALC, parent_handle_done_calc);
   signal(DONE_PRINT, parent_handle_done_print);

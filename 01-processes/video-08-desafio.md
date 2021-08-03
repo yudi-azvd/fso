@@ -2,19 +2,23 @@
 
 LEMBRE que é possível reinstalar o mesmo sinal com outra função.
 
-        100    | PAI
-         |     |
-        101    | FILHO
-        / \    |
-      102 103  | NETO1 e NETO2
+     PAI
+      |
+    FILHO
+   /     \
+NETO1   NETO2
 
+A família de processos pode ficar nesse estado por tempo indeterminado,
+até que o PAI receba SIGINT.
 - [x] PAI envia SIGUSR1 para FILHO
   - [x] FILHO envia SIGUSR1 para NETO1
-    - [ ] NETO1 imprime seu próprio PID
+    - [x] NETO1 imprime seu próprio PID
 
 - [x] PAI envia SIGUSR2 para FILHO, 
   - [x] FILHO envia SIGUSR2 para NETO2
-    - [ ] NETO2 imprime o PID de seu pai
+    - [x] NETO2 imprime o PID de seu pai
+
+Daqui pra frente o PAI ignora SIGUSR1 e SIGUSR2.
 
 - [ ] PAI recebe SIGINT e envia SIGINT para FILHO
 - [ ] FILHO recebe SIGINT e envia SIGINT para NETOS

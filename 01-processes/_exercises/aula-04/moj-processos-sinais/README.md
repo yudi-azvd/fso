@@ -1,5 +1,29 @@
 # Alguns aprendizados
 
+## `watch`
+Para acompanhar uma árvore de processos ao vivo:
+
+```sh
+# script.sh
+ps -x --forest | grep a.out | grep -v 'grep'
+
+# na linha de comando
+watch -d -n 0.5 ./script.sh
+```
+
+`-d` destaca as diferenças entre as execuções dos comandos.
+`-n` período entre execuções do script.
+
+## ``trap``
+[Aula com demonstração](https://youtu.be/obihbzk2iCI?t=3988).
+Tratar um sinal. Útil quando um programa em shell espera um sinal 
+de um processo filho. Assim o bash não morre quando recebe um 
+sinal.
+
+    trap <shellscriptfunction> <signal>
+
+## Race condition
+
 [Solução do professor](https://www.youtube.com/watch?v=YzaDM4QHjN8)
 
 - Não usar a mesma variável que pode ser influenciada por processos diferentes. 

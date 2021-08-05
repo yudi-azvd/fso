@@ -16,9 +16,8 @@ void clear_signals();
 void print_sig(int sig);
 void handle_signal(int new_sig);
 
-// SIGINT SIGUSR2 SIGTERM => Senha acionada
-// SIGINT SIGUSR2 SIGTERM SIGUSR1 => Tchau
-
+// Se você quer uma solução mais mentalmente sã, dê uma
+// olhada em secreto-simplificado.c
 int main() {
   signal(SIGINT, handle_signal);
   signal(SIGUSR1, handle_signal);
@@ -53,7 +52,9 @@ void print_sig(int sig) {
   printf("Recebi %d\n", sig);
 }
 
-// Manda `-exec signal SIGINT` no painel do debugger
+// SIGINT SIGUSR2 SIGTERM => Senha acionada
+// SIGINT SIGUSR2 SIGTERM SIGUSR1 => Tchau
+// Manda `-exec signal SIGINT` no painel do debugger do VSCode
 void handle_signal(int new_sig) {
   print_sig(new_sig);
 

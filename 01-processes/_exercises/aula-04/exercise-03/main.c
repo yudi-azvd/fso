@@ -87,7 +87,7 @@ int main(int argc, char** argv) {
       child_calc_your_part(matrix_a, matrix_b, matrix_size, start_row, end_row);
       kill(getppid(), children[i].sig);
       pause();
-      print_matrix(matrix_c, matrix_size, start_row, end_row);
+      // print_matrix(matrix_c, matrix_size, start_row, end_row);
       kill(getppid(), children[i].sig);
       exit(0);
     }
@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
       child_calc_your_part(matrix_a, matrix_b, matrix_size, start_row, end_row);
       kill(getppid(), children[i].sig);
       pause();
-      print_matrix(matrix_c, matrix_size, start_row, end_row);
+      // print_matrix(matrix_c, matrix_size, start_row, end_row);
       kill(getppid(), children[i].sig);
       exit(0);
     }

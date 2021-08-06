@@ -10,7 +10,7 @@
       "request": "launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}.out",
       "args": [
-        "<", "matriz-0.in"
+        "5", "<", "matriz-010.in"
       ],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",

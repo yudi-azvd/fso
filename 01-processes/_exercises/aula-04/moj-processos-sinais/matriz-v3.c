@@ -14,7 +14,7 @@
 static void child_do_nothing(int sig) {return;};
 void parent_handle_child_1_sig(int);
 void parent_handle_child_2_sig(int);
-void child_calc_your_half(int ma[N_MAX][N_MAX], int mb[N_MAX][N_MAX], int n, int start_row, int end_row);
+void child_calc_your_part(int ma[N_MAX][N_MAX], int mb[N_MAX][N_MAX], int n, int start_row, int end_row);
 void child_1_print_your_half(int sig);
 void child_2_print_your_half(int sig);
 void print_matrix(int m[N_MAX][N_MAX], int n, int start_row, int end_row);
@@ -41,10 +41,12 @@ pid_t child_pid_1, child_pid_2;
  * 
  * Ideia para o futuro: rodar o profiler nesse programa e ver onde ele mais 
  * gasta tempo.
+ * 
+ * https://moj.naquadah.com.br/contests/bcr-FSO-2021_1-processos-e-sinais/multiplica-matriz-fork.html
  */
 int main() {
   int i;
-  const int nproc = 2;
+  const int nproc = 5;
   pid_t pids[nproc];
   signal(CHILD_1_SIGNAL, parent_handle_child_1_sig);
   signal(CHILD_2_SIGNAL, parent_handle_child_2_sig);
@@ -63,7 +65,7 @@ int main() {
       // poderia colocar esse bloco numa função, tirando o exit(0) e pause() e kill()?;
       int start_row = i*interval_len, end_row = i*interval_len+interval_len-1;
       signal(CHILD_1_SIGNAL, child_do_nothing);
-      child_calc_your_half(matrix_a, matrix_b, n, start_row, end_row);
+      child_calc_your_part(matrix_a, matrix_b, n, start_row, end_row);
       kill(getppid(), children_sigs[i]);
       pause();
       print_matrix(matrix_c, n, start_row, end_row);
@@ -114,7 +116,7 @@ void parent_handle_done_print(int sig) {
 }
 
 
-void child_calc_your_half(int ma[N_MAX][N_MAX], int mb[N_MAX][N_MAX], int n, int start_row, int end_row) {
+void child_calc_your_part(int ma[N_MAX][N_MAX], int mb[N_MAX][N_MAX], int n, int start_row, int end_row) {
   int i, j, k;
   for (i = start_row; i <= end_row; ++i) {
     for (j = 0; j < n; ++j) {

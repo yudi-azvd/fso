@@ -7,6 +7,10 @@ Para acompanhar uma árvore de processos ao vivo:
 # script.sh
 ps -x --forest | grep a.out | grep -v 'grep'
 
+# uma opção mais limpa
+ps -x --forest | grep "a.out\|main.out" | grep -v 'grep' |
+  sed -E "s/^(\s+?[0-9]+)(.*\s+\|)(.*)/\1 ->\3/"
+
 # na linha de comando
 watch -d -n 0.5 ./script.sh
 ```

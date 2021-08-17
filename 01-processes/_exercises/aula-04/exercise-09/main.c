@@ -26,6 +26,8 @@ int main() {
       printf("%d\n\n", j);
       exit(0);
     }
+    // else 
+    //   wait(NULL); // sequencial
   }
 
   sleep(2); // pra dar tempo de todos os filhos imprimirem

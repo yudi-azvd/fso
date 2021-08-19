@@ -5,16 +5,7 @@
 #include <unistd.h>
 
 
-// void* do_the_thing(void *d) {
-//   int i;
-//   data_t data = *((data_t*) d);
-//   for (i = data.begin; i <= data.end; i++) {
-//     data.results[i] = i*4 + 20;
-//   }
-  
-//   return NULL;
-// }
-
+// https://www.brunoribas.com.br/so/2021-1/#orga52554a
 
 int cmpint(const void* a, const void* b) {
   return *((int*)a) - *((int*)b);

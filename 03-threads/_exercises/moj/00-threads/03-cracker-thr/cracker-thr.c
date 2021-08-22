@@ -41,7 +41,7 @@ void* find_seed_in_range(void* d) {
   int seed;
   data_t* data = (data_t*) d;
 
-  for (seed = data->min_seed; seed < data->max_seed; ++seed) {
+  for (seed = data->min_seed; seed <= data->max_seed; ++seed) {
     if (is_correct_seed(data->numbers, data->size, seed)) {
       data->result_seed = seed;
       return NULL;
@@ -56,10 +56,11 @@ int find_seed(int* numbers, int size, const int min_seed, const int max_seed) {
   const unsigned int mid_seed = (min_seed+max_seed)/2;
   unsigned int seed1 = min_seed, seed2 = mid_seed;
 
+  const int not_valid_result_seed = 0;
   pthread_t threads[2];
   data_t datas[2] = {
-    {numbers, size, min_seed, mid_seed, -1},
-    {numbers, size, mid_seed+1, max_seed, -1},
+    {numbers, size, min_seed, mid_seed, not_valid_result_seed},
+    {numbers, size, mid_seed+1, max_seed, not_valid_result_seed},
   };
 
   pthread_create(&threads[0], NULL, &find_seed_in_range, &datas[0]);
@@ -68,7 +69,7 @@ int find_seed(int* numbers, int size, const int min_seed, const int max_seed) {
   pthread_join(threads[0], NULL);
   pthread_join(threads[1], NULL);
 
-  if (datas[0].result_seed != -1)
+  if (datas[0].result_seed != not_valid_result_seed)
     return datas[0].result_seed;
   else
     return datas[1].result_seed;

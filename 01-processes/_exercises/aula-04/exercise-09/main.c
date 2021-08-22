@@ -30,7 +30,7 @@ int main() {
     //   wait(NULL); // sequencial
   }
 
-  sleep(2); // pra dar tempo de todos os filhos imprimirem
+  sleep(5); // pra dar tempo de todos os filhos imprimirem
   i = nchildren;
   while (i--) {
     wait(NULL);

@@ -12,6 +12,7 @@
     "type_traits": "c",
     "*.tcc": "c",
     "stdio.h": "c",
-    "main.h": "c"
+    "main.h": "c",
+    "pthread.h": "c"
   },
 }

@@ -4,6 +4,6 @@
 # ps -x --forest | grep a.out | grep -v 'grep' | sed -E 's/^([\s]+?[0-9]+)(.*)/\1/'
 # se estiver rodando em watch, é só salvar e comando é atualizado.
 
-# executar com watch -d -n 0.5 ./print-process-tree.c
+# executar com watch -d -n 0.5 ./print-process-tree.sh
 ps -x --forest | grep "a.out\|main.out" | grep -v 'grep' |
   sed -E "s/^(\s+?[0-9]+)(.*\s+\|)(.*)/\1 ->\3/"

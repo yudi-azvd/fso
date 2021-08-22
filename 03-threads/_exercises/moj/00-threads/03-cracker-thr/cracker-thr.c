@@ -66,7 +66,7 @@ int find_seed(int* numbers, int size, const int min_seed, const int max_seed) {
   pthread_create(&threads[1], NULL, &find_seed_in_range, &datas[1]);
 
   pthread_join(threads[0], NULL);
-  pthread_join(threads[0], NULL);
+  pthread_join(threads[1], NULL);
 
   if (datas[0].result_seed != -1)
     return datas[0].result_seed;

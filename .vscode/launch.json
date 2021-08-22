@@ -8,9 +8,10 @@
       "name": "gcc-9 - Build and debug active file",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}/${fileBasenameNoExtension}.out",
+      "program": "${fileDirname}/a.out",
       "args": [
-        "5", "<", "matriz-010.in"
+        "<", "in/03.in",
+        // "1", "5"
       ],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",
@@ -49,6 +50,31 @@
       ],
       "preLaunchTask": "C/C++: gcc-9 build active file",
       "miDebuggerPath": "/usr/bin/gdb",
-    }
+    },
+    {
+      // https://github.com/microsoft/vscode-cpptools/issues/4531#issuecomment-682371856
+      "name": "(gdb) valgrind remote-target",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/a.out",
+      "targetArchitecture": "x64",
+      "customLaunchSetupCommands" : [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Attach to valgrind",
+          "text": "target remote | /usr/lib64/valgrind/../../bin/vgdb",
+          "ignoreFailures": false  
+        }
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb"
+    },
   ]
 }

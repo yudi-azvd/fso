@@ -1,4 +1,5 @@
 {
+  "C_Cpp.loggingLevel": "Debug",
   "bashIde.explainshellEndpoint": "http://localhost:5000",
   "files.associations": {
     "*.data": "riscv",
@@ -12,5 +13,5 @@
     "*.tcc": "c",
     "stdio.h": "c",
     "main.h": "c"
-  }
+  },
 }

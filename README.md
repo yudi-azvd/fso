@@ -1,5 +1,5 @@
 # Fundamentos de Sistemas Operacionais - FGA0170
-[Página de FSO](https://www.brunoribas.com.br/so/2021-1/)
+[Página de FSO](https://www.brunoribas.com.br/so/2021-1/) 
 
 [Progresso das aulas e exercícios](https://github.com/yudi-azvd/fso/issues/1)
 

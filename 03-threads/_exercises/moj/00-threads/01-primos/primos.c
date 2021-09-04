@@ -9,32 +9,11 @@
 #include <math.h>
 
 
-#define SHOUTED_NUMBERS_CAPACITY 1000
-#define MAX_THREADS 2
-
-
 typedef struct thread_data_t {
-  int size;
-  int shouted_numbers[SHOUTED_NUMBERS_CAPACITY/2];
-  long int almost_prime[SHOUTED_NUMBERS_CAPACITY/2];
+  int n;
+  int result;
 } thread_data_t;
 
-
-void print_shouted_numbers(thread_data_t* datas) {
-  int i;
-  for (i = 0; i < datas[0].size; ++i)
-    printf("%d\n", datas[0].shouted_numbers[i]);
-  for (i = 0; i < datas[1].size; ++i)
-    printf("%d\n", datas[1].shouted_numbers[i]);
-}
-
-void print_almost_primes(thread_data_t* datas) {
-  int i;
-  for (i = 0; i < datas[0].size; ++i)
-    printf("%ld\n", datas[0].almost_prime[i]);
-  for (i = 0; i < datas[1].size; ++i)
-    printf("%ld\n", datas[1].almost_prime[i]);
-}
 
 int has_more_than_10_divisors_greater_than_10_smaller_than_sqrt_of_n(int n) {
   double sqrt_n = sqrt(n);
@@ -73,46 +52,29 @@ int get_almost_prime_number_from(int n) {
 
 void* calc(void* d) {
   thread_data_t* data = (thread_data_t*) d;
-  int almost_prime;
-  for (size_t i = 0; i < data->size; i++) {
-    data->almost_prime[i] = 
-      get_almost_prime_number_from(data->shouted_numbers[i]);
-  }
+  data->result = get_almost_prime_number_from(data->n);
 }
 
 int main() {
-  pthread_t threads[MAX_THREADS];
-  thread_data_t datas[MAX_THREADS] = {[0 ... MAX_THREADS-1] = {0}};
-  int shouted_numbers[SHOUTED_NUMBERS_CAPACITY];
-  int i, ntest_cases = 0, number;
+  int ntest_cases, number;
+  pthread_t thread1, thread2;
+  thread_data_t data1, data2;
 
   scanf("%d", &ntest_cases);
-  datas[0].size = ntest_cases/2;
-  datas[1].size = ntest_cases/2;
-  if (ntest_cases % MAX_THREADS != 0) 
-    datas[1].size++;
 
-  for (i = 0; i < datas[0].size; ++i)
-    scanf("%d", &datas[0].shouted_numbers[i]);
-  for (i = 0; i < datas[1].size; ++i)
-    scanf("%d", &datas[1].shouted_numbers[i]);
+  while (1) {
+    if (scanf("%d", &number) == EOF) break;
+    data1.n = number;
+    pthread_create(&thread1, NULL, &calc, &data1);
 
-  for (i = 0; i < MAX_THREADS; i++) {
-    pthread_create(&threads[i], NULL, &calc, &datas[i]);
+    if (scanf("%d", &number) == EOF) break;
+    data2.n = number;
+    pthread_create(&thread2, NULL, &calc, &data2);
+
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+
+    printf("%d\n", data1.n);
+    printf("%d\n", data2.n);
   }
-
-  for ( i = 0; i < MAX_THREADS; i++) {
-    pthread_join(threads[i], NULL);
-  }
-
-  // printf("%d\n", has_more_than_10_divisors_greater_than_10_smaller_than_sqrt_of_n(508079));
-  // printf("%d\n", has_more_than_10_divisors_greater_than_10_smaller_than_sqrt_of_n(600457));
-  // printf("%d\n", has_more_than_10_divisors_greater_than_10_smaller_than_sqrt_of_n(600457));
-  // printf("%d\n", has_more_than_10_divisors_greater_than_10_smaller_than_sqrt_of_n(6533033));
-
-  print_almost_primes(datas);
-  // print_shouted_numbers(datas);
-  // printf("%d\n", has_more_than_10_divisors_greater_than_10_smaller_than_sqrt_of_n(600457));
-  // printf("%d\n", get_almost_prime_number_from(6530430));
-  // printf("%d\n", get_almost_prime_number_from(550794));
 }

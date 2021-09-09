@@ -36,12 +36,14 @@ void* produce(void* id) {
   int tid = *((int*) id);
   
   while (1) {
-    sem_wait(&prod_sem);
+    printf("P %0d wants access to critical region\n", tid);
     sem_wait(&mutex);
+    printf("P %0d wants to produce item\n", tid);
+    sem_wait(&prod_sem);
       items_in_buffer++; empty_slots--;
       printf("P %0d | %0d items, %0d slots.\n", tid, items_in_buffer, empty_slots);
-    sem_post(&mutex);
     sem_post(&cons_sem);
+    sem_post(&mutex);
 
     sleep_random(2);
   } 
@@ -58,12 +60,13 @@ void* consume(void* id) {
   int tid = *((int*) id); 
 
   while (1) {
-    sem_wait(&cons_sem);
+    printf("C %0d wants access to critical region\n", tid);
     sem_wait(&mutex);
+    sem_wait(&cons_sem);
       items_in_buffer--; empty_slots++;
       printf("C %0d | %0d items, %0d slots.\n", tid, items_in_buffer, empty_slots);
-    sem_post(&mutex);
     sem_post(&prod_sem);
+    sem_post(&mutex);
 
     sleep_random(2);
   }

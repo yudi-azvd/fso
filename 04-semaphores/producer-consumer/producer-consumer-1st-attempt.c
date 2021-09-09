@@ -8,6 +8,9 @@
 // Figure 31.10: Adding The Full And Empty Conditions
 // https://pages.cs.wisc.edu/~remzi/OSTEP/threads-sema.pdf
 
+// Ótima explicação
+// http://pages.cs.wisc.edu/~bart/537/lecturenotes/s6.html
+
 #define MAX 100
 
 int fill = 0;
